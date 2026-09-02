@@ -1,20 +1,10 @@
-# Exclude everything
-/*
+# Jetbrains files
+.idea/
+*.iml
 
-# Except for default project files
-!/.github
-!/build-aux
-!/cmake
-!/data
-!/src
-!.clang-format
-!.gersemirc
-!.gitignore
-!buildspec.json
-!CMakeLists.txt
-!CMakePresets.json
-!LICENSE
-!README.md
+# Generated files
+src/version.h
+node_modules/
 
 # Exclude lock files
 *.lock.json
@@ -24,3 +14,26 @@
 
 # Exclude CMake build number cache
 /cmake/.CMakeBuildNumber
+
+# Lab files
+lab/
+
+# Built files
+cmake-build-*/
+build/
+build-prod/
+build_*/
+meta.json.schema.json
+
+# Development files
+*.mp4
+*.webm
+*.mov
+build.sh
+build_dev.sh
+test.sh
+debug_logs/
+/CMakeUserPresets.json
+
+# Exclude release
+release/

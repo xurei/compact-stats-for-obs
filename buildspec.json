@@ -36,10 +36,10 @@
             "bundleId": "com.example.plugintemplate-for-obs"
         }
     },
-    "name": "plugintemplate-for-obs",
-    "displayName": "Plugin Template for OBS",
-    "version": "1.0.0",
-    "author": "Your Name Here",
-    "website": "https://example.com",
-    "email": "me@example.com"
+    "name": "shorter-stats",
+    "displayName": "A shorter stats dock for OBS",
+    "version": "0.0.0",
+    "author": "xurei",
+    "website": "https://github.com/xurei/shorter-stats-for-obs",
+    "email": "xureilab@gmail.com"
 }
