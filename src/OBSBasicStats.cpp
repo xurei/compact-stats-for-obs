@@ -1,19 +1,25 @@
 #include "OBSBasicStats.hpp"
 
-#include <widgets/OBSBasic.hpp>
-
-#include <qt-wrappers.hpp>
+#include "qt-wrappers.hpp"
 
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QScrollArea>
-#include <QVBoxLayout>
 
 #include "moc_OBSBasicStats.cpp"
 
 #define TIMER_INTERVAL 2000
 #define REC_TIME_LEFT_INTERVAL 30000
+
+inline const char *Str(const char *lookup)
+{
+    return obs_frontend_get_locale_string(lookup);
+}
+inline QString QTStr(const char *lookupVal)
+{
+    return QString::fromUtf8(Str(lookupVal));
+}
 
 void OBSBasicStats::OBSFrontendEvent(enum obs_frontend_event event, void *ptr)
 {
@@ -165,9 +171,9 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	}
 	connect(resetButton, &QPushButton::clicked, this, [this]() { Reset(); });
 
-	delete shortcutFilter;
-	shortcutFilter = CreateShortcutFilter();
-	installEventFilter(shortcutFilter);
+//	delete shortcutFilter;
+//	shortcutFilter = CreateShortcutFilter();
+//	installEventFilter(shortcutFilter);
 
 	resize(800, 280);
 
@@ -186,24 +192,24 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 		timer.start();
 	}
 
-	Update();
+	//Update();
 
 	QObject::connect(&recTimeLeft, &QTimer::timeout, this, &OBSBasicStats::RecordingTimeLeft);
 	recTimeLeft.setInterval(REC_TIME_LEFT_INTERVAL);
 
-	OBSBasic *main = OBSBasic::Get();
-
-	const char *geometry = config_get_string(main->Config(), "Stats", "geometry");
-	if (geometry != NULL) {
-		QByteArray byteArray = QByteArray::fromBase64(QByteArray(geometry));
-		restoreGeometry(byteArray);
-
-		QRect windowGeometry = normalGeometry();
-		if (!WindowPositionValid(windowGeometry)) {
-			QRect rect = QGuiApplication::primaryScreen()->geometry();
-			setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), rect));
-		}
-	}
+//	OBSBasic *main = OBSBasic::Get();
+//
+//	const char *geometry = config_get_string(main->Config(), "Stats", "geometry");
+//	if (geometry != NULL) {
+//		QByteArray byteArray = QByteArray::fromBase64(QByteArray(geometry));
+//		restoreGeometry(byteArray);
+//
+//		QRect windowGeometry = normalGeometry();
+//		if (!WindowPositionValid(windowGeometry)) {
+//			QRect rect = QGuiApplication::primaryScreen()->geometry();
+//			setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), rect));
+//		}
+//	}
 
 	obs_frontend_add_event_callback(OBSFrontendEvent, this);
 
@@ -214,11 +220,11 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 
 void OBSBasicStats::closeEvent(QCloseEvent *event)
 {
-	OBSBasic *main = OBSBasic::Get();
-	if (isVisible()) {
-		config_set_string(main->Config(), "Stats", "geometry", saveGeometry().toBase64().constData());
-		config_save_safe(main->Config(), "tmp", nullptr);
-	}
+//	OBSBasic *main = OBSBasic::Get();
+//	if (isVisible()) {
+//		config_set_string(main->Config(), "Stats", "geometry", saveGeometry().toBase64().constData());
+//		config_save_safe(main->Config(), "tmp", nullptr);
+//	}
 
 	// This code is only reached when the non-dockable stats window is
 	// manually closed or OBS is exiting.
@@ -229,7 +235,7 @@ void OBSBasicStats::closeEvent(QCloseEvent *event)
 
 OBSBasicStats::~OBSBasicStats()
 {
-	delete shortcutFilter;
+//	delete shortcutFilter;
 	os_cpu_usage_info_destroy(cpu_info);
 }
 
@@ -268,7 +274,7 @@ void OBSBasicStats::InitializeValues()
 
 void OBSBasicStats::Update()
 {
-	OBSBasic *main = OBSBasic::Get();
+//	OBSBasic *main = OBSBasic::Get();
 
 	/* TODO: Un-hardcode */
 
@@ -307,7 +313,7 @@ void OBSBasicStats::Update()
 
 	/* ------------------ */
 
-	const char *path = main->GetCurrentOutputPath();
+	const char *path = obs_frontend_get_current_record_output_path();
 
 #define MBYTE (1024ULL * 1024ULL)
 #define GBYTE (1024ULL * 1024ULL * 1024ULL)
