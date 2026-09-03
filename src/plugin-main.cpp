@@ -49,5 +49,3 @@ void obs_module_unload(void) {
     obs_frontend_remove_dock("xureilab-shorter-stats");
     obs_log(LOG_INFO, "plugin unloaded");
 }
-
-#include "plugin-main.moc"

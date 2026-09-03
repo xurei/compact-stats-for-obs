@@ -15,8 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef SHADERTASTIC_LOGGING_FUNCTIONS_HPP
-#define SHADERTASTIC_LOGGING_FUNCTIONS_HPP
+#ifndef SHORTER_STATS_LOGGING_FUNCTIONS_HPP
+#define SHORTER_STATS_LOGGING_FUNCTIONS_HPP
 
 #include <obs-module.h>
 
@@ -33,4 +33,4 @@
 #endif
 #define debug_trace(format, ...) //debug(format, ##__VA_ARGS__)
 
-#endif // SHADERTASTIC_LOGGING_FUNCTIONS_HPP
+#endif // SHORTER_STATS_LOGGING_FUNCTIONS_HPP

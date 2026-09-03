@@ -38,7 +38,7 @@
     },
     "name": "shorter-stats",
     "displayName": "A shorter stats dock for OBS",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "author": "xurei",
     "website": "https://github.com/xurei/shorter-stats-for-obs",
     "email": "xureilab@gmail.com"
