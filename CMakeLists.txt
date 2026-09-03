@@ -72,3 +72,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 set_target_properties_plugin(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${_name})
+
+# Installer
+configure_file("installer.iss.in"
+        "${PROJECT_BINARY_DIR}/installer.iss"
+)
