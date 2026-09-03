@@ -58,8 +58,10 @@ static QString MakeMissedFramesText(uint32_t total_lagged, uint32_t total_render
 		.arg(QString::number(total_lagged), QString::number(total_rendered), QString::number((double)num, 'f', 1));
 }
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "MemoryLeak"
+#endif
 OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	: QFrame(parent),
 	  cpu_info(os_cpu_usage_info_start()),
@@ -226,7 +228,9 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 		StartRecTimeLeft();
 	}
 }
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif
 
 void OBSBasicStats::closeEvent(QCloseEvent *event)
 {
@@ -324,7 +328,7 @@ void OBSBasicStats::Update()
 
 	/* ------------------ */
 
-	const char *path = obs_frontend_get_current_record_ou2tput_path();
+	const char *path = obs_frontend_get_current_record_output_path();
 
 #define MBYTE (1024ULL * 1024ULL)
 #define GBYTE (1024ULL * 1024ULL * 1024ULL)

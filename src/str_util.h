@@ -1,6 +1,19 @@
-//
-// Created by olivier on 18/07/26.
-//
+/******************************************************************************
+    Copyright (C) 2023 by xurei <xureilab@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
 
 #ifndef TIMELINE_CONTROL_STR_UTIL_H
 #define TIMELINE_CONTROL_STR_UTIL_H
@@ -9,30 +22,6 @@
 #include <obs-module.h>
 #include <QString>
 
-inline double str_to_double(const std::string &str, const double default_ = 0.0) {
-    try {
-        return std::stod(str);
-    }
-    catch (std::exception &e) {
-        return default_;
-    }
-}
-
-inline int str_to_int(const std::string &str, const int default_ = 0) {
-    try {
-        return std::stoi(str);
-    }
-    catch (std::exception &e) {
-        return default_;
-    }
-}
-
-inline std::string obs_module_file_std(const char *file) {
-    char *file_ = obs_module_file(file);
-    std::string out(file_);
-    bfree(file_);
-    return out;
-}
 inline QString obs_module_file_qt(const char *file) {
     char *file_ = obs_module_file(file);
     QString out(file_);
