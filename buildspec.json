@@ -33,13 +33,18 @@
     },
     "platformConfig": {
         "macos": {
-            "bundleId": "com.example.plugintemplate-for-obs"
+            "bundleId": "com.xureilab.compact-stats-for-obs"
         }
     },
     "name": "shorter-stats",
-    "displayName": "A shorter stats dock for OBS",
+    "displayName": "A compact stats dock for OBS",
     "version": "0.0.1",
     "author": "xurei",
-    "website": "https://github.com/xurei/shorter-stats-for-obs",
-    "email": "xureilab@gmail.com"
+    "website": "https://github.com/xurei/compact-stats-for-obs",
+    "email": "xureilab@gmail.com",
+    "uuids": {
+        "macosPackage": "42004f8b-7ece-4faf-9f1e-d69b57cc3647",
+        "macosInstaller": "42004f8b-7ece-4983-bea4-47ca7b8078dc",
+        "windowsApp": "5f2ae837-0c4c-4856-b723-da11d73bef45"
+    }
 }

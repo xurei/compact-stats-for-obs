@@ -29,15 +29,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE OBS::libobs)
 
 include(FetchContent)
 
-# Dependency - YAML Parser
-#FetchContent_Declare(
-# yaml-cpp
-#  GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
-#  GIT_TAG yaml-cpp-0.9.0
-#)
-#FetchContent_MakeAvailable(yaml-cpp)
-#target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp) # The library or executable that require yaml-cpp library
-
 if(ENABLE_FRONTEND_API)
   find_package(obs-frontend-api REQUIRED)
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE OBS::obs-frontend-api)
@@ -72,6 +63,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 set_target_properties_plugin(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${_name})
+
+# Activate std:c++20
+if(MSVC)
+  add_definitions(/std:c++20)
+endif()
 
 # Installer
 configure_file("installer.iss.in"

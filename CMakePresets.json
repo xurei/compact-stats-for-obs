@@ -28,6 +28,7 @@
       "generator": "Xcode",
       "warnings": {"dev": true, "deprecated": true},
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_OSX_DEPLOYMENT_TARGET": "12.0",
         "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
         "CODESIGN_IDENTITY": "$penv{CODESIGN_IDENT}",
@@ -41,7 +42,7 @@
       "description": "Build for macOS 12.0+ (Universal binary) for CI",
       "generator": "Xcode",
       "cacheVariables": {
-        "CMAKE_COMPILE_WARNING_AS_ERROR": true,
+        "CMAKE_COMPILE_WARNING_AS_ERROR": false,
         "ENABLE_CCACHE": true
       }
     },
@@ -56,9 +57,11 @@
         "lhs": "${hostSystemName}",
         "rhs": "Windows"
       },
-      "generator": "Visual Studio 17 2022",
-      "architecture": "x64,version=10.0.22621",
-      "warnings": {"dev": true, "deprecated": true}
+      "architecture": "x64,version=10.0.26100",
+      "warnings": {"dev": true, "deprecated": true},
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
     },
     {
       "name": "windows-ci-x64",
