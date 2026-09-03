@@ -13,7 +13,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 
 ; app Information
-AppId={{70c85575-38c5-4a7d-811e-342d54343c46}}
+AppId={{5f2ae837-0c4c-4856-b723-da11d73bef45}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
