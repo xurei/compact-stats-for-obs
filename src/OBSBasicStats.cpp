@@ -128,9 +128,11 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	statItem = newStatBare("FPS & " + QTStr("Basic.Stats.AverageTimeToRender"), obs_module_file_qt("icons/movie.svg"), 1, 2);
     statItem->addValueWidget(fps);
     statItem->addValueWidget(renderTime);
-    statItem = newStat("MissedFrames", obs_module_file_qt("icons/timer.svg"), 1, 1);
+    statItem = newStatBare("", obs_module_file_qt("icons/timer.svg"), 1, 1);
     statItem->addValueWidget(missedFramesDeco);
+    missedFramesDeco->setToolTip(QTStr("Basic.Stats.MissedFrames"));
     statItem->addValueWidget(skippedFramesDeco);
+    skippedFramesDeco->setToolTip(QTStr("Basic.Stats.SkippedFrames"));
 	//newStat("SkippedFrames", skippedFrames, 1, 2);
 
 	/* --------------------------------------------- */

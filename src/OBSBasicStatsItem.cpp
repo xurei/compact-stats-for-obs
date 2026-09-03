@@ -37,7 +37,9 @@ OBSBasicStatsItem::OBSBasicStatsItem(const QString field_name, const QString ico
         field_label = new QLabel(this);
         field_label->setText(field_name);
     }
-    this->setToolTip(field_name);
+    if (field_name != "") {
+        this->setToolTip(field_name);
+    }
 }
 #ifdef __clang__
 #pragma clang diagnostic pop
