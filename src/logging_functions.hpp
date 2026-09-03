@@ -15,13 +15,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef SHORTER_STATS_LOGGING_FUNCTIONS_HPP
-#define SHORTER_STATS_LOGGING_FUNCTIONS_HPP
+#ifndef COMPACT_STATS_LOGGING_FUNCTIONS_HPP
+#define COMPACT_STATS_LOGGING_FUNCTIONS_HPP
 
 #include <obs-module.h>
 
 #define do_log(level, format, ...) \
-    blog(level, "[shorter-stats] " format, ##__VA_ARGS__)
+    blog(level, "[compact-stats] " format, ##__VA_ARGS__)
 #define info(format, ...) do_log(LOG_INFO, format, ##__VA_ARGS__)
 #define warn(format, ...) do_log(LOG_WARNING, format, ##__VA_ARGS__)
 #define log_error(format, ...) do_log(LOG_ERROR, format, ##__VA_ARGS__)
@@ -33,4 +33,4 @@
 #endif
 #define debug_trace(format, ...) //debug(format, ##__VA_ARGS__)
 
-#endif // SHORTER_STATS_LOGGING_FUNCTIONS_HPP
+#endif // COMPACT_STATS_LOGGING_FUNCTIONS_HPP

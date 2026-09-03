@@ -39,13 +39,13 @@ void obs_module_unload_docks() {
 [[maybe_unused]]
 bool obs_module_load(void) {
     stats_dock = new OBSBasicStats();
-    obs_frontend_add_dock_by_id("xureilab-shorter-stats", "Shorter Stats", stats_dock);
+    obs_frontend_add_dock_by_id("xureilab-compact-stats", "Compact Stats", stats_dock);
 //    obs_frontend_add_save_callback(obs_module_frontend_saveload, nullptr);
     return true;
 }
 
 [[maybe_unused]]
 void obs_module_unload(void) {
-    obs_frontend_remove_dock("xureilab-shorter-stats");
+    obs_frontend_remove_dock("xureilab-compact-stats");
     obs_log(LOG_INFO, "plugin unloaded");
 }

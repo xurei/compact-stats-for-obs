@@ -36,7 +36,7 @@
             "bundleId": "com.xureilab.compact-stats-for-obs"
         }
     },
-    "name": "shorter-stats",
+    "name": "compact-stats",
     "displayName": "A compact stats dock for OBS",
     "version": "0.0.1",
     "author": "xurei",

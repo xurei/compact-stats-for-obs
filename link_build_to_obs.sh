@@ -5,10 +5,10 @@ echo "This script will attempt to make a symbolic link in your OBS plugins folde
 DIR=$(dirname $0)
 set -e
 
-rm -rf ~/.config/obs-studio/plugins/shorter-stats || true
+rm -rf ~/.config/obs-studio/plugins/compact-stats || true
 
-mkdir -p ~/.config/obs-studio/plugins/shorter-stats/bin
-ln -s "${DIR}/data" ~/.config/obs-studio/plugins/shorter-stats/data
-ln -s "${DIR}/cmake-build-debug" ~/.config/obs-studio/plugins/shorter-stats/bin/64bit
+mkdir -p ~/.config/obs-studio/plugins/compact-stats/bin
+ln -s "${DIR}/data" ~/.config/obs-studio/plugins/compact-stats/data
+ln -s "${DIR}/cmake-build-debug" ~/.config/obs-studio/plugins/compact-stats/bin/64bit
 
 echo "Done !"

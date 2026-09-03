@@ -26,8 +26,8 @@
 #include <QVBoxLayout>
 #include "icon-label/IconLabel.hpp"
 
-#ifndef SHORTER_STATS_OBSBASICSTATSITEM_HPP
-#define SHORTER_STATS_OBSBASICSTATSITEM_HPP
+#ifndef COMPACT_STATS_OBSBASICSTATSITEM_HPP
+#define COMPACT_STATS_OBSBASICSTATSITEM_HPP
 
 class OBSBasicStatsItem : public QWidget {
     Q_OBJECT
@@ -47,4 +47,4 @@ class OBSBasicStatsItem : public QWidget {
         //void setClass(const QString &newClasses);
 };
 
-#endif //SHORTER_STATS_OBSBASICSTATSITEM_HPP
+#endif //COMPACT_STATS_OBSBASICSTATSITEM_HPP

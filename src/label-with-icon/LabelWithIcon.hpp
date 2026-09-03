@@ -15,8 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef SHORTER_STATS_LABELWITHICON_HPP
-#define SHORTER_STATS_LABELWITHICON_HPP
+#ifndef COMPACT_STATS_LABELWITHICON_HPP
+#define COMPACT_STATS_LABELWITHICON_HPP
 
 #include <QIcon>
 #include <QLabel>
@@ -44,4 +44,4 @@ class LabelWithIcon : public QWidget {
         }
 };
 
-#endif //SHORTER_STATS_LABELWITHICON_HPP
+#endif //COMPACT_STATS_LABELWITHICON_HPP
