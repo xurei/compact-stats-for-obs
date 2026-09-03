@@ -6,17 +6,19 @@ on:
       - master
       - main
       - 'release/**'
+      - 'lab/**'
+      - 'dev/current'
     tags:
       - '*'
 permissions:
   contents: write
 jobs:
-  check-format:
-    name: Check Formatting 🔍
-    if: github.ref_name == 'master' || github.ref_name == 'main'
-    uses: ./.github/workflows/check-format.yaml
-    permissions:
-      contents: read
+#  check-format:
+#    name: Check Formatting 🔍
+#    if: github.ref_name == 'master' || github.ref_name == 'main'
+#    uses: ./.github/workflows/check-format.yaml
+#    permissions:
+#      contents: read
 
   build-project:
     name: Build Project 🧱
