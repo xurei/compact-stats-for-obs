@@ -9,8 +9,11 @@
 #include <obs-module.h>
 
 #include "moc_OBSBasicStats.cpp"
+#include "icon-label/IconLabel.hpp"
+#include "OBSBasicStatsItem.hpp"
+#include "str_util.h"
 
-#define TIMER_INTERVAL 2000
+#define TIMER_INTERVAL 1000
 #define REC_TIME_LEFT_INTERVAL 30000
 
 inline const char *Str(const char *lookup)
@@ -63,24 +66,27 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	  timer(this),
 	  recTimeLeft(this)
 {
+    UNUSED_PARAMETER(closable);
 	auto *mainLayout = new QVBoxLayout();
     auto *topLayout = new QGridLayout();
 	outputLayout = new QGridLayout();
 
 	bitrates.reserve(REC_TIME_LEFT_INTERVAL / TIMER_INTERVAL);
 
-	int row = 0;
-
-	auto newStatBare = [&](QString name, QWidget *label, int col) {
-		QLabel *typeLabel = new QLabel(name, this);
-		topLayout->addWidget(typeLabel, row, col);
-		topLayout->addWidget(label, row++, col + 1);
+	auto newStatBare = [&](QString name, QString icon_file, int row, int col) {
+        UNUSED_PARAMETER(name);
+        auto *block = new OBSBasicStatsItem(name, icon_file);
+//        char *icon_path_ = obs_module_file("icons/cpu.svg");
+//        std::string icon_path(icon_path_);
+//        bfree(icon_path_);
+        topLayout->addWidget(block, row, col);
+        return block;
 	};
 
-	auto newStat = [&](const char *strLoc, QWidget *label, int col) {
+	auto newStat = [&](const char *strLoc, QString icon_file, int row, int col) {
 		std::string str = "Basic.Stats.";
 		str += strLoc;
-		newStatBare(QTStr(str.c_str()), label, col);
+		return newStatBare(QTStr(str.c_str()), icon_file, row, col);
 	};
 
 	/* --------------------------------------------- */
@@ -93,40 +99,43 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	QString str = MakeTimeLeftText(99999, 59);
 	int textWidth = recordTimeLeft->fontMetrics().boundingRect(str).width();
 	recordTimeLeft->setMinimumWidth(textWidth);
-
-	newStat("CPUUsage", cpuUsage, 0);
-	newStat("HDDSpaceAvailable", hddSpace, 0);
-	newStat("DiskFullIn", recordTimeLeft, 0);
-	newStat("MemoryUsage", memUsage, 0);
+    recordTimeLeft->setText("-");
 
 	fps = new QLabel(this);
 	renderTime = new QLabel(this);
 	skippedFrames = new QLabel(this);
-	missedFrames = new QLabel(this);
+    missedFrames = new QLabel(this);
+    auto skippedFramesDeco = new LabelWithIcon(this, skippedFrames);
+    skippedFramesDeco->setIcon(QIcon(obs_module_file_qt("icons/data-transfer-both.svg")), 16);
+    auto missedFramesDeco = new LabelWithIcon(this, missedFrames);
+    missedFramesDeco->setIcon(QIcon(obs_module_file_qt("icons/cpu.svg")), 16);
 
-	str = MakeMissedFramesText(999999, 999999, 99.99);
+    str = MakeMissedFramesText(999999, 999999, 99.99);
 	textWidth = missedFrames->fontMetrics().boundingRect(str).width();
 	missedFrames->setMinimumWidth(textWidth);
 
-	row = 0;
-
-	newStatBare("FPS", fps, 2);
-	newStat("AverageTimeToRender", renderTime, 2);
-	newStat("MissedFrames", missedFrames, 2);
-	newStat("SkippedFrames", skippedFrames, 2);
+    OBSBasicStatsItem *statItem;
+    statItem = newStat("CPUUsage", obs_module_file_qt("icons/cpu.svg"), 0, 0);
+    statItem->addValueWidget(cpuUsage);
+    statItem = newStat("MemoryUsage", obs_module_file_qt("icons/memory.svg"), 1, 0);
+    statItem->addValueWidget(memUsage);
+    statItem = newStat("HDDSpaceAvailable", obs_module_file_qt("icons/hard-drive.svg"), 0, 2);
+    statItem->addValueWidget(hddSpace);
+    statItem = newStat("DiskFullIn", obs_module_file_qt("icons/hourglass.svg"), 0, 1);
+    statItem->addValueWidget(recordTimeLeft);
+	statItem = newStatBare("FPS & " + QTStr("Basic.Stats.AverageTimeToRender"), obs_module_file_qt("icons/movie.svg"), 1, 2);
+    statItem->addValueWidget(fps);
+    statItem->addValueWidget(renderTime);
+    statItem = newStat("MissedFrames", obs_module_file_qt("icons/timer.svg"), 1, 1);
+    statItem->addValueWidget(missedFramesDeco);
+    statItem->addValueWidget(skippedFramesDeco);
+	//newStat("SkippedFrames", skippedFrames, 1, 2);
 
 	/* --------------------------------------------- */
-	QPushButton *closeButton = nullptr;
-	if (closable) {
-		closeButton = new QPushButton(QTStr("Close"));
-	}
 	auto *resetButton = new QPushButton(QTStr("Reset"));
     auto *buttonLayout = new QHBoxLayout;
 	buttonLayout->addStretch();
 	buttonLayout->addWidget(resetButton);
-	if (closable) {
-		buttonLayout->addWidget(closeButton);
-	}
 
 	/* --------------------------------------------- */
 
@@ -160,18 +169,15 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
     auto *scrollArea = new QScrollArea(this);
 	scrollArea->setWidget(widget);
 	scrollArea->setWidgetResizable(true);
-
+    scrollArea->setMinimumHeight(110);
 	/* --------------------------------------------- */
 
-	mainLayout->addLayout(topLayout);
-	mainLayout->addWidget(scrollArea);
+	mainLayout->addLayout(topLayout, 0);
+	mainLayout->addWidget(scrollArea, 1);
 	mainLayout->addLayout(buttonLayout);
 	setLayout(mainLayout);
 
 	/* --------------------------------------------- */
-	if (closable) {
-		connect(closeButton, &QPushButton::clicked, this, [this]() { close(); });
-	}
 	connect(resetButton, &QPushButton::clicked, this, [this]() { Reset(); });
 
 //	delete shortcutFilter;
@@ -297,8 +303,9 @@ void OBSBasicStats::Update()
 
 	double curFPS = obs_get_active_fps();
 	double obsFPS = (double)ovi.fps_num / (double)ovi.fps_den;
+    long double num;
 
-	QString str = QString::number(curFPS, 'f', 2);
+	QString str = QString::number(curFPS, 'f', 1) + QStringLiteral(" fps");
 	fps->setText(str);
 
 	if (curFPS < (obsFPS * 0.8)) {
@@ -312,19 +319,18 @@ void OBSBasicStats::Update()
 	/* ------------------ */
 
 	double usage = os_cpu_usage_info_query(cpu_info);
-	str = QString::number(usage, 'g', 2) + QStringLiteral("%");
+	str = QString::number(usage, 'g', 1) + QStringLiteral("%");
 	cpuUsage->setText(str);
 
 	/* ------------------ */
 
-	const char *path = obs_frontend_get_current_record_output_path();
+	const char *path = obs_frontend_get_current_record_ou2tput_path();
 
 #define MBYTE (1024ULL * 1024ULL)
 #define GBYTE (1024ULL * 1024ULL * 1024ULL)
 #define TBYTE (1024ULL * 1024ULL * 1024ULL * 1024ULL)
 	num_bytes = os_get_free_disk_space(path);
 	QString abrv = QStringLiteral(" MB");
-	long double num;
 
 	num = (long double)num_bytes / (1024.0l * 1024.0l);
 	if (num_bytes > TBYTE) {
@@ -452,7 +458,7 @@ void OBSBasicStats::ResetRecTimeLeft()
 	if (recTimeLeft.isActive()) {
 		bitrates.clear();
 		recTimeLeft.stop();
-		recordTimeLeft->setText(QTStr(""));
+		recordTimeLeft->setText("-");
 	}
 }
 

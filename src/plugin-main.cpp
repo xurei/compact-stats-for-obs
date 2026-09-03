@@ -180,8 +180,8 @@ bool obs_module_load(void) {
 
 [[maybe_unused]]
 void obs_module_unload(void) {
-    stats_dock->deleteLater();
-    stats_dock = nullptr;
+//    stats_dock->deleteLater();
+//    stats_dock = nullptr;
 
     /*if (g_dock != nullptr) {
         g_dock->deleteLater();

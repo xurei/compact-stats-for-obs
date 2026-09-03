@@ -7,6 +7,8 @@
 #include <QFrame>
 #include <QPointer>
 #include <QTimer>
+#include "OBSBasicStatsItem.hpp"
+#include "label-with-icon/LabelWithIcon.hpp"
 
 class QLabel;
 class QGridLayout;
@@ -20,9 +22,9 @@ class OBSBasicStats : public QFrame {
 	QLabel *recordTimeLeft = nullptr;
 	QLabel *memUsage = nullptr;
 
-	QLabel *renderTime = nullptr;
-	QLabel *skippedFrames = nullptr;
-	QLabel *missedFrames = nullptr;
+    QLabel *renderTime = nullptr;
+    QLabel *skippedFrames = nullptr;
+    QLabel *missedFrames = nullptr;
 
 	QGridLayout *outputLayout = nullptr;
 
