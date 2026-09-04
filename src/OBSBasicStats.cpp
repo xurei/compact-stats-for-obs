@@ -108,7 +108,7 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	skippedFrames = new QLabel(this);
     missedFrames = new QLabel(this);
     auto skippedFramesDeco = new LabelWithIcon(this, skippedFrames);
-    skippedFramesDeco->setIcon(QIcon(obs_module_file_qt("icons/data-transfer-both.svg")), 16);
+    skippedFramesDeco->setIcon(QIcon(obs_module_file_qt("icons/movie.svg")), 16);
     auto missedFramesDeco = new LabelWithIcon(this, missedFrames);
     missedFramesDeco->setIcon(QIcon(obs_module_file_qt("icons/cpu.svg")), 16);
 
@@ -119,16 +119,17 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
     OBSBasicStatsItem *statItem;
     statItem = newStat("CPUUsage", obs_module_file_qt("icons/cpu.svg"), 0, 0);
     statItem->addValueWidget(cpuUsage);
-    statItem = newStat("MemoryUsage", obs_module_file_qt("icons/memory.svg"), 1, 0);
+    statItem = newStat("MemoryUsage", obs_module_file_qt("icons/memory2.svg"), 1, 0);
     statItem->addValueWidget(memUsage);
     statItem = newStat("HDDSpaceAvailable", obs_module_file_qt("icons/hard-drive.svg"), 0, 2);
     statItem->addValueWidget(hddSpace);
     statItem = newStat("DiskFullIn", obs_module_file_qt("icons/hourglass.svg"), 0, 1);
     statItem->addValueWidget(recordTimeLeft);
-	statItem = newStatBare("FPS & " + QTStr("Basic.Stats.AverageTimeToRender"), obs_module_file_qt("icons/movie.svg"), 1, 2);
+	statItem = newStatBare("FPS & " + QTStr("Basic.Stats.AverageTimeToRender"), obs_module_file_qt("icons/timer.svg"), 1, 2);
     statItem->addValueWidget(fps);
     statItem->addValueWidget(renderTime);
-    statItem = newStatBare("", obs_module_file_qt("icons/timer.svg"), 1, 1);
+    //statItem = newStatBare("", obs_module_file_qt("icons/turtle-outline2.svg"), 1, 1);
+    statItem = newStatBare("", obs_module_file_qt("icons/movie-broken2.svg"), 1, 1);
     statItem->addValueWidget(missedFramesDeco);
     missedFramesDeco->setToolTip(QTStr("Basic.Stats.MissedFrames"));
     statItem->addValueWidget(skippedFramesDeco);
