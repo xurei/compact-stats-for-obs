@@ -28,5 +28,14 @@ inline QString obs_module_file_qt(const char *file) {
     bfree(file_);
     return out;
 }
+inline QString obs_module_file_qt(std::string file) {
+    return obs_module_file_qt(file.c_str());
+}
+inline QString obs_data_file_qt(const char *file) {
+    char *file_ = obs_find_data_file(file);
+    QString out(file_);
+    bfree(file_);
+    return out;
+}
 
 #endif //TIMELINE_CONTROL_STR_UTIL_H

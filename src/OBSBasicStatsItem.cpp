@@ -29,7 +29,7 @@ OBSBasicStatsItem::OBSBasicStatsItem(const QString field_name, const QString ico
     field_label->setContentsMargins(0, 0, 10, 0);
     layout->addLayout(value_layout, 2);
     if (icon_path != "") {
-        ((IconLabel*)field_label)->setIconSize(26);
+        ((IconLabel*)field_label)->setIconSize(28);
         ((IconLabel*)field_label)->setIcon(QIcon(icon_path));
         field_label->setToolTip(field_name);
     }

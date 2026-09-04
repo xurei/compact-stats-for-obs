@@ -37,10 +37,21 @@ void obs_module_unload_docks() {
 }
 
 [[maybe_unused]]
+static void frontend_event_callback(enum obs_frontend_event event, void *private_data) {
+    UNUSED_PARAMETER(private_data);
+    if (event == OBS_FRONTEND_EVENT_THEME_CHANGED) {
+        stats_dock = new OBSBasicStats();
+        obs_frontend_remove_dock("xureilab-compact-stats");
+        obs_frontend_add_dock_by_id("xureilab-compact-stats", "Compact Stats", stats_dock);
+    }
+}
+
+[[maybe_unused]]
 bool obs_module_load(void) {
     stats_dock = new OBSBasicStats();
     obs_frontend_add_dock_by_id("xureilab-compact-stats", "Compact Stats", stats_dock);
 //    obs_frontend_add_save_callback(obs_module_frontend_saveload, nullptr);
+    obs_frontend_add_event_callback(frontend_event_callback, nullptr);
     return true;
 }
 
