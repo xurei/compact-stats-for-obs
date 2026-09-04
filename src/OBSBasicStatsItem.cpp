@@ -25,11 +25,14 @@
 #endif
 OBSBasicStatsItem::OBSBasicStatsItem(const QString field_name, const QString icon_path) : QWidget(nullptr) {
     this->setLayout(layout);
+    layout->setContentsMargins(5, 0, 5, 0);
     layout->addWidget(field_label, 0, Qt::AlignRight);
-    field_label->setContentsMargins(0, 0, 10, 0);
+    field_label->setContentsMargins(0, 0, 8, 0);
     layout->addLayout(value_layout, 2);
+    layout->setSpacing(5);
+    this->setMinimumHeight(48);
     if (icon_path != "") {
-        ((IconLabel*)field_label)->setIconSize(28);
+        ((IconLabel*)field_label)->setIconSize(30);
         ((IconLabel*)field_label)->setIcon(QIcon(icon_path));
         field_label->setToolTip(field_name);
     }
