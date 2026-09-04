@@ -325,7 +325,7 @@ void OBSBasicStats::Update()
 	/* ------------------ */
 
 	double usage = os_cpu_usage_info_query(cpu_info);
-	str = QString::number(usage, 'g', 1) + QStringLiteral("%");
+	str = QString::number(usage, 'f', 1) + QStringLiteral("%");
 	cpuUsage->setText(str);
 
 	/* ------------------ */
