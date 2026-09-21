@@ -15,9 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef PARAMETER_DOCK_PLUGIN_COMMON_H
-#define PARAMETER_DOCK_PLUGIN_COMMON_H
+#ifndef COMPACT_STATS_RESOURCE_UTIL_HPP
+#define COMPACT_STATS_RESOURCE_UTIL_HPP
 
 #define release_resource(function, resource) if ((resource) != nullptr) { function(resource); resource = nullptr; }
 
-#endif //PARAMETER_DOCK_PLUGIN_COMMON_H
+#endif //COMPACT_STATS_RESOURCE_UTIL_HPP

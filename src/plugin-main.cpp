@@ -15,6 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
+#include <QMainWindow>
 #include <vector>
 #include <obs-frontend-api.h>
 #include <obs-module.h>
@@ -40,7 +41,7 @@ void obs_module_unload_docks() {
 static void frontend_event_callback(enum obs_frontend_event event, void *private_data) {
     UNUSED_PARAMETER(private_data);
     if (event == OBS_FRONTEND_EVENT_THEME_CHANGED) {
-        stats_dock = new OBSBasicStats();
+        stats_dock = new OBSBasicStats((QMainWindow*)obs_frontend_get_main_window());
         obs_frontend_remove_dock("xureilab-compact-stats");
         obs_frontend_add_dock_by_id("xureilab-compact-stats", "Compact Stats", stats_dock);
     }
@@ -48,7 +49,8 @@ static void frontend_event_callback(enum obs_frontend_event event, void *private
 
 [[maybe_unused]]
 bool obs_module_load(void) {
-    stats_dock = new OBSBasicStats();
+    stats_dock = new OBSBasicStats((QMainWindow*)obs_frontend_get_main_window());
+    OBSBasicStats::InitializeValues();
     obs_frontend_add_dock_by_id("xureilab-compact-stats", "Compact Stats", stats_dock);
 //    obs_frontend_add_save_callback(obs_module_frontend_saveload, nullptr);
     obs_frontend_add_event_callback(frontend_event_callback, nullptr);
@@ -58,5 +60,6 @@ bool obs_module_load(void) {
 [[maybe_unused]]
 void obs_module_unload(void) {
     obs_frontend_remove_dock("xureilab-compact-stats");
+    obs_frontend_remove_event_callback(frontend_event_callback, nullptr);
     obs_log(LOG_INFO, "plugin unloaded");
 }

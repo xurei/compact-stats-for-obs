@@ -20,7 +20,7 @@
 #include "version.h"
 #include "settings.h"
 #include "logging_functions.hpp"
-#include "plugin-common.h"
+#include "resource_util.hpp"
 
 //settings_t plugin_settings_;
 obs_data_t *current_settings_data_ = nullptr;
