@@ -1,7 +1,9 @@
 # Compact Stats Plugin for OBS
 
-## ⚠️ DISCLAIMER : This is currently under development, use at your own risks
-![Screenshot_20260903_033049.png](doc/Screenshot_20260903_033049.png)
+This plugin is a copy of the "Stats" dock from the obs-studio source code, 
+with a few tweaks to make it more compact while keeping all the information. 
+
+![Previw](doc/Screenshot_20260921_170334.png)
 
 # Icons attributions
 - https://iconoir.com/
