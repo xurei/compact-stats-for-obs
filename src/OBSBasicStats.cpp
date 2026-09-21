@@ -1,3 +1,6 @@
+#include <obs-module.h>
+#include <util/bmem.h>
+
 #include "OBSBasicStats.hpp"
 
 #include "qt-wrappers.hpp"
@@ -7,7 +10,6 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QScrollArea>
-#include <obs-module.h>
 
 #include "moc_OBSBasicStats.cpp"
 #include "icon-label/IconLabel.hpp"
@@ -352,12 +354,13 @@ void OBSBasicStats::Update()
 
 	/* ------------------ */
 
-	const char *path = obs_frontend_get_current_record_output_path();
+	char *path = obs_frontend_get_current_record_output_path();
 
 #define MBYTE (1024ULL * 1024ULL)
 #define GBYTE (1024ULL * 1024ULL * 1024ULL)
 #define TBYTE (1024ULL * 1024ULL * 1024ULL * 1024ULL)
 	num_bytes = os_get_free_disk_space(path);
+    bfree(path);
 	QString abrv = QStringLiteral(" MB");
 
 	num = (long double)num_bytes / (1024.0l * 1024.0l);
