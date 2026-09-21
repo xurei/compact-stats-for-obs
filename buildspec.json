@@ -37,7 +37,7 @@
         }
     },
     "name": "compact-stats",
-    "displayName": "A compact stats dock for OBS",
+    "displayName": "Compact stats dock for OBS",
     "version": "0.0.1",
     "author": "xurei",
     "website": "https://github.com/xurei/compact-stats-for-obs",
