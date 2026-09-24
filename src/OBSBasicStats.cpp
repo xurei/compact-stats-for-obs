@@ -160,8 +160,10 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	//newStat("SkippedFrames", skippedFrames, 1, 2);
 
 	/* --------------------------------------------- */
-	auto *resetButton = new QPushButton(QTStr("Reset"));
+    auto *resetButton = new QPushButton(QTStr("Reset"));
+    auto *bigredButton = new QPushButton(QTStr("Kill Switch"));
     auto *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(bigredButton);
 	buttonLayout->addStretch();
 	buttonLayout->addWidget(resetButton);
 
@@ -206,7 +208,23 @@ OBSBasicStats::OBSBasicStats(QWidget *parent, bool closable)
 	setLayout(mainLayout);
 
 	/* --------------------------------------------- */
-	connect(resetButton, &QPushButton::clicked, this, [this]() { Reset(); });
+    connect(resetButton, &QPushButton::clicked, this, [this]() { Reset(); });
+    connect(bigredButton, &QPushButton::clicked, this, [this]() {
+        QMessageBox::StandardButton reply = QMessageBox::question(
+            this,
+            "Confirmation",
+            "Are you sure ? This will 💥CRASH💥 OBS",
+            QMessageBox::Yes | QMessageBox::No,
+            QMessageBox::No
+        );
+
+        if (reply == QMessageBox::Yes) {
+            char i_will_crash_everything[512]{};
+            char *though_me = (char*) i_will_crash_everything;
+            though_me++;
+            bfree(though_me);
+        }
+    });
 
 //	delete shortcutFilter;
 //	shortcutFilter = CreateShortcutFilter();
