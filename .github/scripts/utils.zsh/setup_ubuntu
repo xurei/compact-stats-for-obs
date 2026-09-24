@@ -42,8 +42,12 @@ if (( ! (${skips[(Ie)all]} + ${skips[(Ie)deps]}) )) {
     build-essential \
     libgles2-mesa-dev \
     libsimde-dev \
-    obs-studio \
-    libobs-dev
+    obs-studio
+
+  if (( $(source /etc/os-release; echo "${VERSION_ID%%.*}") >= 26 )); then
+      echo "Ubuntu 26+ detected. Installing libobs-dev..."
+      sudo apt-get install -y ${apt_args} libobs-dev
+  fi
 
   local -a _qt_packages=()
 
