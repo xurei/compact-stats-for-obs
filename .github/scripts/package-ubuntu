@@ -156,6 +156,17 @@ ${_usage_host:-}"
   popd
 
   if (( package )) {
+    rm -rf /tmp/cpack-shlibdeps || true
+
+    mkdir -p /tmp/cpack-shlibdeps/bin
+    echo "\
+#!/bin/sh \n\
+exec /usr/bin/dpkg-shlibdeps \"$@\"" > /tmp/cpack-shlibdeps/bin/dpkg-shlibdeps
+
+    chmod +x /tmp/cpack-shlibdeps/bin/dpkg-shlibdeps
+
+    export PATH="/tmp/cpack-shlibdeps/bin:$PATH"
+
     log_group "Packaging ${product_name}..."
     pushd ${project_root}
     cmake --build build_${target##*-} --config ${config} -t package ${cmake_args}
