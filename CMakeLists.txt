@@ -48,8 +48,8 @@ if(ENABLE_QT)
 endif()
 
 # Packaging - force the dependencies so Qt is not taken with it; OBS will have it anyways
-set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS OFF CACHE BOOL "" FORCE)
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.14), libgcc-s1 (>= 3.0), libqt6core6t64 (>= 6.4.0), libstdc++6 (>= 5.2), obs-studio" CACHE STRING "" FORCE)
+# set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS OFF CACHE BOOL "" FORCE)
+# set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.14), libgcc-s1 (>= 3.0), libqt6core6t64 (>= 6.4.0), libstdc++6 (>= 5.2), obs-studio" CACHE STRING "" FORCE)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/version.h)
 file(GLOB sources_CPP
